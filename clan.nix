@@ -9,9 +9,13 @@
 
   inventory.machines = {
     main = {
-      deploy.targetHost = "root@192.168.20.220";
+      deploy.targetHost = "root@100.117.227.123";
       # Define tags here (optional)
-      tags = [];
+      tags = ["nixos"];
+    };
+    offsite = {
+      deploy.targetHost = "root@100.117.175.95";
+      tags = ["nicos"];
     };
   };
 
@@ -29,19 +33,6 @@
         "root" = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAqDkA6c7wWbeVXWv0fh0xEB2NURnL8qudQHxDVWGPAfAAAABHNzaDo= ssh:";
       };
     };
-
-    #simen-user = {
-    #  module.name = "users";
-    #    roles.default.tags.all = { };
-
-    #    roles.default.settings = {
-    #      user = "simen";
-    #      groups = [
-    #        "wheel" # Allow using 'sudo'
-    #        "networkmanager" # Allows to manage network connections.
-    #      ];
-    #    };
-    #  };
 
     # Docs: https://docs.clan.lol/services/official/tor/
     # Tor network provides secure, anonymous connections to your machines

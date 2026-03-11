@@ -2,6 +2,9 @@
   "machines": {
     "main": {
       "installedAt": 1772789130
+    },
+    "offsite": {
+      "installedAt": 1773225868
     }
   }
 }
