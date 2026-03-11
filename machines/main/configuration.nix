@@ -6,6 +6,7 @@
   ...
 }: {
   imports = [
+    ./modules/apps/immich.nix
     ../../modules
   ];
 

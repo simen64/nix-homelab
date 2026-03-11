@@ -5,6 +5,8 @@
 }: {
   imports = [
     #./overlays.nix
+    ./netbird.nix
+    ./caddy.nix
   ];
 
   nixpkgs = {
