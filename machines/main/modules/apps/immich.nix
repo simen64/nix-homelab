@@ -13,6 +13,15 @@
 
   users.users.immich.extraGroups = ["video" "render"];
 
+  clan.core.state.immich = {
+    folders = [
+      "/media/library"
+      "/media/upload"
+      "/media/profile"
+      "/media/backups"
+    ];
+  };
+
   homelab.services.caddy.enable = true;
   services.caddy.virtualHosts."immich.simenmo.com" = {
     extraConfig = ''

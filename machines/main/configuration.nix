@@ -1,12 +1,11 @@
 {
   pkgs,
   config,
-  inputs,
-  outputs,
   ...
 }: {
   imports = [
     ./modules/apps/immich.nix
+    ./modules/apps/seafile
     ../../modules
   ];
 
@@ -21,4 +20,8 @@
   environment.systemPackages = with pkgs; [
     unstable.llmfit
   ];
+
+  homelab.services.pocket-id = {
+    enable = true;
+  };
 }
