@@ -21,6 +21,8 @@
     unstable.llmfit
   ];
 
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+
   homelab.services.pocket-id = {
     enable = true;
   };

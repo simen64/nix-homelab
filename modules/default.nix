@@ -1,10 +1,19 @@
-{outputs, ...}: {
+{
+  outputs,
+  lib,
+  ...
+}: {
   imports = [
     #./overlays.nix
     ./netbird.nix
     ./caddy.nix
+    ./watchtower.nix
     ./apps/pocket-id.nix
   ];
+
+  homelab.services = {
+    netbird.enable = lib.mkDefault true;
+  };
 
   nixpkgs = {
     overlays = [

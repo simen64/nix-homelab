@@ -25,6 +25,13 @@
     };
   };
 
+  clan.core.state.immich = {
+    folders = [
+      "/files/seafile"
+      "/files/seafile-mysql"
+    ];
+  };
+
   clan.core.vars.generators.seafile-mysql-password = {
     share = true; # same password used by both seafile and mysql containers
     files.password = {secret = true;};
@@ -66,7 +73,10 @@
       then "podman+"
       else "podman*";
   in {
-    "${matchAll}".allowedUDPPorts = [53];
+    "${matchAll}" = {
+      allowedUDPPorts = [53];
+      allowedTCPPorts = [80 443];
+    };
   };
 
   virtualisation.oci-containers.backend = "podman";

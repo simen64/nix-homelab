@@ -14,8 +14,12 @@
       tags = ["nixos"];
     };
     offsite = {
-      deploy.targetHost = "root@100.117.175.95";
-      tags = ["nicos"];
+      deploy.targetHost = "root@100.123.109.34";
+      tags = ["nixos"];
+    };
+    vps = {
+      deploy.targetHost = "root@135.181.35.96";
+      tags = ["nixos" "user"];
     };
   };
 
@@ -27,6 +31,21 @@
         # All keys will have ssh access to all machines ("tags.all" means 'all machines').
         # Alternatively set 'users.users.root.openssh.authorizedKeys.keys' in each machine
         "root" = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAqDkA6c7wWbeVXWv0fh0xEB2NURnL8qudQHxDVWGPAfAAAABHNzaDo= ssh:";
+      };
+    };
+
+    simen-user = {
+      module.name = "users";
+      roles.default.tags.user = {};
+      roles.default.settings = {
+        user = "simen";
+        groups = [
+          "wheel" # Allow using 'sudo'
+          "networkmanager" # Allows to manage network connections.
+          "video" # Allows to access video devices.
+          "input" # Allows to access input devices.
+          "docker"
+        ];
       };
     };
 
@@ -51,5 +70,10 @@
   };
 
   machines = {
+    vps = {
+      users.users.simen.openssh.authorizedKeys.keys = [
+        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAqDkA6c7wWbeVXWv0fh0xEB2NURnL8qudQHxDVWGPAfAAAABHNzaDo= ssh:"
+      ];
+    };
   };
 }
