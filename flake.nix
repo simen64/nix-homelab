@@ -56,7 +56,10 @@
       ]
       (system: {
         default = clan-core.inputs.nixpkgs.legacyPackages.${system}.mkShell {
-          packages = [clan-core.packages.${system}.clan-cli];
+          packages = [
+            clan-core.packages.${system}.clan-cli
+            nixpkgs.legacyPackages.${system}.just
+          ];
         };
       });
   };

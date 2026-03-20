@@ -9,7 +9,7 @@
 
   inventory.machines = {
     main = {
-      deploy.targetHost = "root@100.117.227.123";
+      deploy.targetHost = "root@100.123.23.198";
       # Define tags here (optional)
       tags = ["nixos"];
     };
@@ -20,6 +20,10 @@
     vps = {
       deploy.targetHost = "root@135.181.35.96";
       tags = ["nixos" "user"];
+    };
+    im-backup = {
+      deploy.targetHost = "root@100.123.32.17";
+      tags = ["nixos"];
     };
   };
 
@@ -64,6 +68,8 @@
       roles.server.machines = {
         "offsite".settings = {
           directory = "/storage/borgbackup";
+        };
+        "im-backup".settings = {
         };
       };
     };

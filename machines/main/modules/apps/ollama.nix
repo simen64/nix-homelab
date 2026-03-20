@@ -1,24 +1,14 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  cfg = config.homelab.services.ollama;
-in {
-  options.homelab.services.ollama = {
-    enable = lib.mkEnableOption "Self-hosted ai models";
-
-    models = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-    };
-  };
-
-  config = lib.mkIf cfg.enable {
-    services.ollama = {
-      enable = true;
-      package = pkgs.unstable.ollama-cuda;
-      loadModels = cfg.models;
-    };
+{pkgs, ...}: {
+  services.ollama = {
+    enable = true;
+    package = pkgs.unstable.ollama-cuda;
+    loadModels = [
+      "lfm2"
+      "qwen3.5:27b"
+      "qwen3-coder:30b"
+      "glm-4.7-flash:latest"
+      "devstral-small-2:24b"
+    ];
+    syncModels = true;
   };
 }

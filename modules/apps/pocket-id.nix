@@ -13,6 +13,11 @@ in {
       type = lib.types.str;
       default = "https://pocket-id.simenmo.com";
     };
+
+    host = lib.mkOption {
+      type = lib.types.str;
+      default = "127.0.0.1";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -47,7 +52,7 @@ in {
       enable = true;
 
       settings = {
-        HOST = "127.0.0.1";
+        HOST = cfg.host;
         TRUST_PROXY = true;
         APP_URL = cfg.app_url;
       };
@@ -63,7 +68,7 @@ in {
         reverse_proxy localhost:1411
       '';
     };
-    clan.core.state.immich = {
+    clan.core.state.pocket-id = {
       folders = [
         "/var/lib/pocket-id"
       ];

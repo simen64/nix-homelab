@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   imports = [
     ../../modules
   ];
@@ -6,7 +11,11 @@
   nixpkgs.config.allowUnfree = true;
 
   homelab.services = {
-    pocket-id.enable = true;
+    pocket-id = {
+      enable = true;
+      app_url = "https://idp.simenmo.com";
+      host = "0.0.0.0";
+    };
     watchtower.enable = true;
     netbird.enable = false;
   };
@@ -25,5 +34,20 @@
 
   virtualisation.docker = {
     enable = true;
+  };
+
+  clan.core.state.netbird = {
+    folders = [
+      "/home/simen/netbird"
+      "/var/lib/netbird"
+    ];
+    preBackupScript = ''
+      export PATH=${lib.makeBinPath [config.systemd.package]}:$PATH
+      docker compose stop netbird-server
+    '';
+    postBackupScript = ''
+      export PATH=${lib.makeBinPath [config.systemd.package]}:$PATH
+      docker compose start netbird-server
+    '';
   };
 }
