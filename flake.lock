@@ -13,11 +13,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1774532836,
-        "narHash": "sha256-e1w94IJ9VrMJi7famnvhiizsKCLiIyzTEhogzeOQjGU=",
-        "rev": "f037100489f1a45ce32455ff413888027716f9e0",
+        "lastModified": 1774570623,
+        "narHash": "sha256-Umhv4HQrJJ5cfO+FoYF+mToZNeHR7+voQdxN5VScXQ4=",
+        "rev": "fa110e34a0a0323906c2159ed2af73747e333921",
         "type": "tarball",
-        "url": "https://git.clan.lol/api/v1/repos/clan/clan-core/archive/f037100489f1a45ce32455ff413888027716f9e0.tar.gz"
+        "url": "https://git.clan.lol/api/v1/repos/clan/clan-core/archive/fa110e34a0a0323906c2159ed2af73747e333921.tar.gz"
       },
       "original": {
         "type": "tarball",
