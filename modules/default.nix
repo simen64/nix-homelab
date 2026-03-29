@@ -8,6 +8,7 @@
     ./netbird.nix
     ./caddy.nix
     ./watchtower.nix
+    ./autoupgrade.nix
     ./apps/pocket-id.nix
   ];
 
