@@ -1,10 +1,7 @@
 {
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    clan-core.url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
-    clan-core.inputs.nixpkgs.follows = "nixpkgs";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-  };
+  inputs.clan-core.url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
+  inputs.nixpkgs.follows = "clan-core/nixpkgs";
+  inputs.nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
   outputs = {
     self,
@@ -63,10 +60,6 @@
             clan-core.packages.${system}.clan-cli
             nixpkgs.legacyPackages.${system}.just
           ];
-
-          shellHook = ''
-            git pull https://github.com/simen64/nix-homelab.git
-          '';
         };
       });
   };
