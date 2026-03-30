@@ -1,6 +1,7 @@
-{config, ...}: {
+{pkgs, ...}: {
   services.immich = {
     enable = true;
+    package = pkgs.unstable.immich;
     port = 2283;
 
     host = "0.0.0.0";
@@ -22,7 +23,6 @@
     ];
   };
 
-  homelab.services.caddy.enable = true;
   services.caddy.virtualHosts."immich.simenmo.com" = {
     extraConfig = ''
       import acme-tls

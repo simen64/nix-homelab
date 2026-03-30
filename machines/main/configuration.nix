@@ -25,7 +25,8 @@
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   boot.kernelParams = ["zfs.zfs_arc_max=8589934592"];
 
-  homelab.services.pocket-id = {
-    enable = true;
+  homelab.services = {
+    pocket-id.enable = true;
+    caddy.enable = true;
   };
 }

@@ -50,6 +50,7 @@ in {
 
     services.pocket-id = {
       enable = true;
+      package = pkgs.unstable.pocket-id;
 
       settings = {
         HOST = cfg.host;

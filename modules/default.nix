@@ -10,6 +10,7 @@
     ./watchtower.nix
     ./autoupgrade.nix
     ./apps/pocket-id.nix
+    ./apps/uptime-kuma.nix
   ];
 
   homelab.services = {
