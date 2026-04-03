@@ -13,11 +13,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1775089144,
-        "narHash": "sha256-0nVQx2JmJTUQBpShEqyBAs4r0AYpyIN0Bjm655kx4V0=",
-        "rev": "240baf15707c65457b37dbbe610f8d5d648e04e5",
+        "lastModified": 1775189903,
+        "narHash": "sha256-z7ltzfdSOp7Ysd/L7dWLeqEn6VPAmQhbbmEYT95bJC4=",
+        "rev": "5375748aa1a7bf096544089bf1f06e1d175cd68a",
         "type": "tarball",
-        "url": "https://git.clan.lol/api/v1/repos/clan/clan-core/archive/240baf15707c65457b37dbbe610f8d5d648e04e5.tar.gz"
+        "url": "https://git.clan.lol/api/v1/repos/clan/clan-core/archive/5375748aa1a7bf096544089bf1f06e1d175cd68a.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -210,11 +210,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773297127,
-        "narHash": "sha256-6E/yhXP7Oy/NbXtf1ktzmU8SdVqJQ09HC/48ebEGBpk=",
+        "lastModified": 1775125835,
+        "narHash": "sha256-2qYcPgzFhnQWchHo0SlqLHrXpux5i6ay6UHA+v2iH4U=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "71b125cd05fbfd78cab3e070b73544abe24c5016",
+        "rev": "75925962939880974e3ab417879daffcba36c4a3",
         "type": "github"
       },
       "original": {
