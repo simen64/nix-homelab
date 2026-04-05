@@ -9,6 +9,8 @@
       "qwen3-coder:30b"
       "glm-4.7-flash:latest"
       "devstral-small-2:24b"
+      "gemma4:26b"
+      "gemma4:31b"
     ];
     syncModels = true;
   };

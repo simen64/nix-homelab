@@ -1,0 +1,23 @@
+name: push config
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  push-config:
+    name: push config to machines
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Netbird Connect
+        id: netbird
+        uses: Alemiz112/netbird-connect@v1
+        with:
+          setup-key: ${{ secrets.NETBIRD_SETUP_KEY }}
+          hostname: "github-action: ${{ github.run_id }}"
+          management-url: "https://vpn.simenmo.com"
