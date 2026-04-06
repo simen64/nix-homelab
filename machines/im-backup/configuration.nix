@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   imports = [
     ../../modules
   ];
@@ -14,8 +14,4 @@
       reverse_proxy localhost:3001
     '';
   };
-
-  environment.systemPackages = with pkgs; [
-    unstable.llmfit
-  ];
 }
