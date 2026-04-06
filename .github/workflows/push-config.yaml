@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Netbird Connect
         id: netbird
@@ -21,3 +23,34 @@ jobs:
           setup-key: ${{ secrets.NETBIRD_SETUP_KEY }}
           hostname: "github-action: ${{ github.run_id }}"
           management-url: "https://vpn.simenmo.com"
+
+      - name: flake check
+        run: nix flake check --refresh
+
+      - name: Send webhooks to all machines
+        env:
+          SECRET: ${{ secrets.WEBHOOK_SECRET }}
+        run: |
+          CLAN_NIX="${GITHUB_WORKSPACE}/clan.nix"
+          PAYLOAD='{}'
+
+          SIGNATURE=$(echo -n '{}' | openssl dgst -sha256 -hmac "${SECRET}")
+          echo "Signature: ${SIGNATURE}"
+
+          MACHINES=$(grep -oP 'deploy\.targetHost\s*=\s*"root@\K[^"]+' "$CLAN_NIX")
+
+          if [ -z "$MACHINES" ]; then
+            echo "Error: No machines found in $CLAN_NIX"
+            exit 1
+          fi
+
+          for ip in $MACHINES; do
+            echo ""
+            echo "=== Sending webhook to $ip ==="
+            curl -X POST \
+              -H "Content-Type: application/json" \
+              -H "X-Hub-Signature-256: $SIGNATURE" \
+              -d "$PAYLOAD" \
+              -v \
+              "http://${ip}:9000/hooks/redeploy"
+          done

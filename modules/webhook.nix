@@ -28,7 +28,7 @@ in {
       description = "NixOS rebuild triggered by webhook";
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "/run/current-system/sw/bin/nixos-rebuild switch --flake github:simen64/nix-homelab";
+        ExecStart = "/run/current-system/sw/bin/nixos-rebuild switch --flake github:simen64/nix-homelab --refresh";
       };
     };
 
