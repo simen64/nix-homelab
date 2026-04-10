@@ -19,7 +19,6 @@
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 
   environment.systemPackages = with pkgs; [
-    unstable.llmfit
   ];
 
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
