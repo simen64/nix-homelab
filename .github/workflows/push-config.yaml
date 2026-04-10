@@ -34,7 +34,7 @@ jobs:
           CLAN_NIX="${GITHUB_WORKSPACE}/clan.nix"
           PAYLOAD='{}'
 
-          SIGNATURE=$(echo -n '{}' | openssl dgst -sha256 -hmac "${SECRET}")
+          SIGNATURE=$(echo -n '{}' | openssl dgst -sha256 -hmac "${SECRET}" | awk '{print $2}')
           echo "Signature: ${SIGNATURE}"
 
           MACHINES=$(grep -oP 'deploy\.targetHost\s*=\s*"root@\K[^"]+' "$CLAN_NIX")
