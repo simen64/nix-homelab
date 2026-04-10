@@ -29,6 +29,7 @@ in {
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "/run/current-system/sw/bin/nixos-rebuild switch --flake github:simen64/nix-homelab --refresh";
+        Delegate = "yes";
       };
     };
 
