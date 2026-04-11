@@ -8,8 +8,6 @@
     ../../modules
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   homelab.services = {
     pocket-id = {
       enable = true;

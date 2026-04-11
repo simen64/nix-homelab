@@ -10,8 +10,6 @@
     ../../modules
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   # nvidia drivers
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
