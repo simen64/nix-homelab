@@ -19,16 +19,13 @@
         outputs = self;
       };
 
-      # Customize nixpkgs
-      # pkgsForSystem =
-      #   system:
-      #   import nixpkgs {
-      #     inherit system;
-      #     config = {
-      #       allowUnfree = true;
-      #     };
-      #     overlays = [];
-      #   };
+      pkgsForSystem = system:
+        import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+          };
+        };
     };
   in {
     overlays = {
