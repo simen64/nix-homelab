@@ -7,6 +7,7 @@
     ./modules/apps/ollama.nix
     ./modules/apps/immich.nix
     ./modules/apps/seafile
+    ./modules/apps/plg-stack
     ../../modules
   ];
 
