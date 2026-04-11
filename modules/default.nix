@@ -10,6 +10,7 @@
     ./watchtower.nix
     ./autoupgrade.nix
     ./webhook.nix
+    ./node_exporter.nix
     ./apps/pocket-id.nix
     ./apps/uptime-kuma.nix
   ];
@@ -20,6 +21,9 @@
   };
 
   nixpkgs = {
+    config = {
+      allowUnfree = true;
+    };
     overlays = [
       outputs.overlays.unstable-packages
     ];
