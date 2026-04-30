@@ -68,7 +68,7 @@
       "SEAFILE_MYSQL_DB_SEAFILE_DB_NAME" = "seafile_db";
       "SEAFILE_MYSQL_DB_SEAHUB_DB_NAME" = "seahub_db";
       "SEAFILE_MYSQL_DB_USER" = "seafile";
-      "SEAFILE_SERVER_HOSTNAME" = "seafile.simenmo.com";
+      "SEAFILE_SERVER_HOSTNAME" = "2ef1ef6cf32fa2d50245dee92f924e19.vpn.simenmo.com";
       "SEAFILE_SERVER_PROTOCOL" = "https";
       "SITE_ROOT" = "/";
       "TIME_ZONE" = "Etc/UTC";
