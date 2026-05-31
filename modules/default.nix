@@ -10,13 +10,15 @@
     ./watchtower.nix
     ./autoupgrade.nix
     ./webhook.nix
-    ./node_exporter.nix
+    ./alloy.nix
+    ./node_exporter.nix  # Re-enabled: Prometheus on main scrapes this from all machines
     ./apps/pocket-id.nix
     ./apps/uptime-kuma.nix
   ];
 
   homelab.services = {
     netbird.enable = lib.mkDefault true;
+    alloy.enable = lib.mkDefault true;
     webhook.enable = lib.mkDefault true;
   };
 

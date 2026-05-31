@@ -2,3 +2,4 @@ result
 .direnv/
 webhook-all.sh
 webhook.sh
+.DS_Store
