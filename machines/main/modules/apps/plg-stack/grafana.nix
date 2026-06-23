@@ -210,6 +210,11 @@
     "-${config.clan.core.vars.generators.grafana_discord_webhook.files.grafana_discord_webhook.path}"
   ];
 
+  systemd.services.grafana = {
+    after = ["loki.service"];
+    wants = ["loki.service"];
+  };
+
   services.caddy.virtualHosts."grafana.simenmo.com" = {
     extraConfig = ''
       import acme-tls
