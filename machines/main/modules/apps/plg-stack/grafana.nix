@@ -211,8 +211,8 @@
   ];
 
   systemd.services.grafana = {
-    after = ["loki.service"];
-    wants = ["loki.service"];
+    after = ["loki.service" "prometheus.service"];
+    wants = ["loki.service" "prometheus.service"];
   };
 
   services.caddy.virtualHosts."grafana.simenmo.com" = {
