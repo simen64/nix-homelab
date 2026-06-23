@@ -40,6 +40,7 @@
         enforce_domain = true;
         enable_gzip = true;
         domain = "grafana.simenmo.com";
+        root_url = "https://grafana.simenmo.com";
       };
 
       security.secret_key = "$__file{${config.clan.core.vars.generators.grafana_secret_key.files.grafana_secret_key.path}}";
@@ -115,7 +116,7 @@
               orgId = 1;
               name = "systemd";
               folder = "Homelab";
-              interval = "5m";
+              interval = "1m";
               rules = [
                 # Fires whenever any systemd unit enters the "failed" state.
                 # Loki query counts matching log lines over the last 5 minutes;
@@ -138,7 +139,7 @@
                     {
                       refId = "A";
                       relativeTimeRange = {
-                        from = 300; # 5 minutes
+                        from = 60; # 1 minute
                         to = 0;
                       };
                       datasourceUid = "loki";
@@ -150,7 +151,7 @@
                         editorMode = "code";
                         # Counts log lines containing the exact phrase systemd
                         # emits when a service transitions to failed.
-                        expr = ''count_over_time({job="systemd-journal"} |= "entered failed state" [5m])'';
+                        expr = ''count_over_time({job="systemd-journal"} |= "entered failed state" | regexp `systemd\\[\\d+\\]: (?P<unit>\\S+\\.service): entered failed state` [1m])'';
                         instant = true;
                         queryType = "instant";
                         refId = "A";
@@ -160,7 +161,7 @@
                     {
                       refId = "C";
                       relativeTimeRange = {
-                        from = 300;
+                        from = 60;
                         to = 0;
                       };
                       datasourceUid = "__expr__";
