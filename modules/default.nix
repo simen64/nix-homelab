@@ -18,7 +18,7 @@
 
   homelab.services = {
     netbird.enable = lib.mkDefault true;
-    alloy.enable = lib.mkDefault true;
+    # alloy.enable = lib.mkDefault true;
     webhook.enable = lib.mkDefault true;
   };
 
