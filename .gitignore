@@ -1,4 +1,5 @@
 result
+seafile-ignore.txt
 .direnv/
 webhook-all.sh
 webhook.sh
