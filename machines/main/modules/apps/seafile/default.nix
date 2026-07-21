@@ -25,7 +25,7 @@
     };
   };
 
-  clan.core.state.immich = {
+  clan.core.state.seafile = {
     folders = [
       "/files/seafile"
       "/files/seafile-mysql"

@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.homelab.services.netbird;
@@ -26,6 +27,7 @@ in {
 
     services.netbird = {
       enable = true;
+      package = pkgs.unstable.netbird;
     };
 
     users.users.netbird = {

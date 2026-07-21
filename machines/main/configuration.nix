@@ -9,6 +9,8 @@
     ./modules/apps/seafile
     #./modules/apps/n8n.nix
     #./modules/apps/plg-stack
+    ./modules/apps/gphotos2immich.nix
+    ./modules/apps/discord_assistant.nix
     ../../modules
   ];
 
