@@ -69,8 +69,8 @@
         "offsite".settings = {
           directory = "/storage/borgbackup";
         };
-        "im-backup".settings = {
-        };
+        #"im-backup".settings = {
+        #};
       };
     };
   };
