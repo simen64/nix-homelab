@@ -11,6 +11,7 @@
     #./modules/apps/plg-stack
     ./modules/apps/gphotos2immich.nix
     ./modules/apps/discord_assistant.nix
+    ./modules/apps/resolve-project-server.nix
     ../../modules
   ];
 

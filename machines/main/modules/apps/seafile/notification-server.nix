@@ -14,8 +14,9 @@
       "SEAFILE_MYSQL_DB_SEAFILE_DB_NAME" = "seafile_db";
       "SEAFILE_MYSQL_DB_USER" = "seafile";
     };
+    environmentFiles = ["/run/seafile-notification-secrets.env"];
     volumes = [
-      "/files/seafile/seafile/logs:/shared/seafile/logs:rw"
+      "/files/seafile/notification-logs:/shared/logs:rw"
     ];
     ports = [
       "8083:8083/tcp"
