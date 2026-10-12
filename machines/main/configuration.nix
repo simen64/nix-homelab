@@ -12,6 +12,7 @@
     ./modules/apps/gphotos2immich.nix
     ./modules/apps/discord_assistant.nix
     ./modules/apps/resolve-project-server.nix
+    ./modules/apps/dawarich.nix
     ../../modules
   ];
 

@@ -1,6 +1,7 @@
 {
   outputs,
   lib,
+  pkgs,
   ...
 }: {
   imports = [
@@ -21,6 +22,10 @@
     # alloy.enable = lib.mkDefault true;
     webhook.enable = lib.mkDefault true;
   };
+
+  environment.systemPackages = [
+    pkgs.net-tools
+  ];
 
   nixpkgs = {
     config = {
