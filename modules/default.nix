@@ -10,6 +10,7 @@
     ./caddy.nix
     ./watchtower.nix
     ./autoupgrade.nix
+    ./ca-blacklist.nix
     ./webhook.nix
     #./alloy.nix
     #./node_exporter.nix # Re-enabled: Prometheus on main scrapes this from all machines
