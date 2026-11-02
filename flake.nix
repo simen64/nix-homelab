@@ -2,6 +2,7 @@
   inputs.clan-core.url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
   inputs.nixpkgs.follows = "clan-core/nixpkgs";
   inputs.nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+  inputs.vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
 
   outputs = {
     self,

@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   ...
 }: {
@@ -13,6 +14,7 @@
     ./modules/apps/discord_assistant.nix
     ./modules/apps/resolve-project-server.nix
     ./modules/apps/dawarich.nix
+    ./modules/apps/media
     ../../modules
   ];
 
@@ -22,7 +24,7 @@
   hardware.nvidia.open = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 
-  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  boot.kernel.sysctl."net.ipv4.ip_forward" = lib.mkDefault 1;
   boot.kernelParams = ["zfs.zfs_arc_max=8589934592"];
 
   homelab.services = {
