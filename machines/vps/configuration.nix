@@ -16,6 +16,7 @@
     };
     watchtower.enable = true;
     netbird.enable = false;
+    webhook.openPublicly = true;
   };
 
   environment.systemPackages = with pkgs; [

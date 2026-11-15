@@ -2,23 +2,30 @@ name: push config
 
 on:
   push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: push-config
+  cancel-in-progress: false
 
 jobs:
   push-config:
     name: push config to machines
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+      - uses: DeterminateSystems/magic-nix-cache-action@84c0677f58dcedf3b91f8223ce36a9ea5b3c84b7 # v15
 
       - name: Netbird Connect
         id: netbird
-        uses: Alemiz112/netbird-connect@v1
+        uses: Alemiz112/netbird-connect@8aa36452fc8229f9d98b0f22f2ac7bfa90d2552b # v1
         with:
           setup-key: ${{ secrets.NETBIRD_SETUP_KEY }}
           hostname: "github-action: ${{ github.run_id }}"
@@ -32,9 +39,13 @@ jobs:
           SECRET: ${{ secrets.WEBHOOK_SECRET }}
         run: |
           CLAN_NIX="${GITHUB_WORKSPACE}/clan.nix"
-          PAYLOAD='{}'
 
-          SIGNATURE=$(echo -n '{}' | openssl dgst -sha256 -hmac "${SECRET}" | awk '{print $2}')
+          # Unique per run; the hook only fires when ref == refs/heads/main.
+          PAYLOAD=$(printf '{"ref":"%s","sha":"%s","run_id":"%s"}' "refs/heads/main" "$GITHUB_SHA" "$GITHUB_RUN_ID")
+
+          # HMAC over exactly the bytes that are sent (printf, no trailing newline).
+          SIGNATURE="$(printf '%s' "$PAYLOAD" | openssl dgst -sha256 -hmac "${SECRET}" | awk '{print $NF}')"
+          echo "::add-mask::${SIGNATURE}"
 
           MACHINES=$(grep -oP 'deploy\.targetHost\s*=\s*"root@\K[^"]+' "$CLAN_NIX")
 
@@ -43,13 +54,19 @@ jobs:
             exit 1
           fi
 
+          FAILED=0
           for ip in $MACHINES; do
             echo ""
             echo "=== Sending webhook to $ip ==="
-            curl -X POST \
+            if ! curl --fail --silent --show-error --max-time 30 \
+              -X POST \
               -H "Content-Type: application/json" \
               -H "X-Hub-Signature-256: $SIGNATURE" \
-              -d "$PAYLOAD" \
-              -v \
-              "http://${ip}:9000/hooks/redeploy"
+              --data-binary "$PAYLOAD" \
+              "http://${ip}:9000/hooks/redeploy"; then
+              echo "::error::Webhook to $ip failed"
+              FAILED=1
+            fi
           done
+
+          exit $FAILED
