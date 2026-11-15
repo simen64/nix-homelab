@@ -4,7 +4,7 @@
   ...
 }: {
   virtualisation.oci-containers.containers."seafile-mysql" = {
-    image = "mariadb:10.11";
+    image = "docker.io/library/mariadb:10.11";
     environmentFiles = ["/run/seafile-mysql-secrets.env"];
     environment = {
       "MARIADB_AUTO_UPGRADE" = "1";

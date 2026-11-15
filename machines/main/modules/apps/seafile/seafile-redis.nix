@@ -4,7 +4,8 @@
   ...
 }: {
   virtualisation.oci-containers.containers."seafile-redis" = {
-    image = "redis";
+    # Pinned to a major line instead of implicit :latest; bump deliberately.
+    image = "docker.io/library/redis:7.4-alpine";
     environmentFiles = ["/run/seafile-redis-secrets.env"];
     cmd = ["/bin/sh" "-c" "redis-server --requirepass \"$REDIS_PASSWORD\""];
     log-driver = "journald";
