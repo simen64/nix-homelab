@@ -19,7 +19,7 @@
       "/files/seafile/notification-logs:/shared/logs:rw"
     ];
     ports = [
-      "8083:8083/tcp"
+      "127.0.0.1:8083:8083/tcp" # loopback only, exposed via Caddy
     ];
     dependsOn = [
       "seafile"

@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   ...
@@ -29,8 +30,21 @@
     folders = [
       "/files/seafile"
       "/files/seafile-mysql"
+      "/files/seafile-dumps"
     ];
+    preBackupScript = ''
+      set -euo pipefail
+      export PATH=${lib.makeBinPath [pkgs.podman pkgs.coreutils]}
+      podman exec seafile-mysql sh -c \
+        'mariadb-dump -uroot -p"$MYSQL_ROOT_PASSWORD" --all-databases --single-transaction --routines --events' \
+        > /files/seafile-dumps/all-databases.sql.tmp
+      mv /files/seafile-dumps/all-databases.sql.tmp /files/seafile-dumps/all-databases.sql
+    '';
   };
+
+  systemd.tmpfiles.rules = [
+    "d /files/seafile-dumps 0700 root root -"
+  ];
 
   clan.core.vars.generators.seafile-mysql-password = {
     share = true; # same password used by both seafile and mysql containers
