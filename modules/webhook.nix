@@ -7,7 +7,23 @@
   cfg = config.homelab.services.webhook;
 in {
   options.homelab.services.webhook = {
-    enable = lib.mkEnableOption "automatic updates with watchtower";
+    enable = lib.mkEnableOption "the redeploy webhook (adnanh/webhook on port 9000) that runs nixos-rebuild from GitHub when the push-config workflow calls it";
+
+    openFirewallOn = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = ["wt0"];
+      description = "Network interfaces on which TCP port 9000 is opened for the webhook. Defaults to the Netbird interface only.";
+    };
+
+    openPublicly = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = ''
+        Open TCP port 9000 on all interfaces, including public ones.
+        Only for machines that cannot be reached over Netbird (e.g. the VPS
+        that runs the Netbird server itself).
+      '';
+    };
   };
   config = lib.mkIf cfg.enable {
     clan.core.vars.generators = {
@@ -69,7 +85,7 @@ in {
           ExecStart = pkgs.writeShellScript "discord-notify-failure" ''
             set -eu
             FAILED_UNIT="''${FAILED_UNIT%.service}"
-            WEBHOOK_URL="$(cat ${config.clan.core.vars.generators.discord-webhook-url.files.discord-webhook-url.path})"
+            WEBHOOK_URL="$(cat "$CREDENTIALS_DIRECTORY/webhook-url")"
             CONTENT="🚨 $FAILED_UNIT failed on $(/run/current-system/sw/bin/hostname) at $(/run/current-system/sw/bin/date -Is)"
             ${pkgs.curl}/bin/curl --max-time 15 --form-string "content=$CONTENT" "$WEBHOOK_URL"
           '';
@@ -114,20 +130,39 @@ in {
               }
             ],
             "trigger-rule": {
-              "match": {
-                "parameter": {
-                  "name": "X-Hub-Signature-256",
-                  "source": "header"
+              "and": [
+                {
+                  "match": {
+                    "parameter": {
+                      "name": "X-Hub-Signature-256",
+                      "source": "header"
+                    },
+                    "secret": "{{ cat "${config.clan.core.vars.generators.webhook-secret.files.webhook-secret.path}" | js }}",
+                    "type": "payload-hmac-sha256"
+                  }
                 },
-                "secret": "{{ cat "${config.clan.core.vars.generators.webhook-secret.files.webhook-secret.path}" | js }}",
-                "type": "payload-hmac-sha256"
-              }
+                {
+                  "match": {
+                    "parameter": {
+                      "name": "ref",
+                      "source": "payload"
+                    },
+                    "type": "value",
+                    "value": "refs/heads/main"
+                  }
+                }
+              ]
             }
           }
         '';
       };
     };
 
-    networking.firewall.allowedTCPPorts = [9000];
+    networking.firewall =
+      if cfg.openPublicly
+      then {allowedTCPPorts = [9000];}
+      else {
+        interfaces = lib.genAttrs cfg.openFirewallOn (_: {allowedTCPPorts = [9000];});
+      };
   };
 }
