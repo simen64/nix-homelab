@@ -15,6 +15,7 @@
     ./modules/apps/resolve-project-server.nix
     ./modules/apps/dawarich.nix
     ./modules/apps/media
+    ./modules/apps/container-updates.nix
     ../../modules
   ];
 

@@ -44,7 +44,7 @@
   };
 
   virtualisation.oci-containers.containers."seafile" = {
-    image = "seafileltd/seafile-mc:13.0-latest";
+    image = "docker.io/seafileltd/seafile-mc:13.0-latest";
     environmentFiles = ["/run/seafile-secrets.env"];
     environment = {
       "CACHE_PROVIDER" = "redis";

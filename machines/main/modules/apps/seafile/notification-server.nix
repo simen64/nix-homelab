@@ -4,7 +4,7 @@
   ...
 }: {
   virtualisation.oci-containers.containers."notification-server" = {
-    image = "seafileltd/notification-server:13.0-latest";
+    image = "docker.io/seafileltd/notification-server:13.0-latest";
     environment = {
       "NOTIFICATION_SERVER_LOG_LEVEL" = "info";
       "SEAFILE_LOG_TO_STDOUT" = "false";
