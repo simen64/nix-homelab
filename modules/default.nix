@@ -36,6 +36,9 @@
   };
   nix.optimise.automatic = true;
 
+  # /boot is only 500M and each kernel + initrd is ~60M; the default of 100 entries fills it
+  boot.loader.grub.configurationLimit = 5;
+
   nixpkgs = {
     config = {
       allowUnfree = true;
