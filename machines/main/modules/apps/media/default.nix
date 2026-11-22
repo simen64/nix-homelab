@@ -26,6 +26,7 @@
     folders = [
       "/var/lib/jellyfin"
       "/var/lib/radarr"
+      "/var/lib/bazarr"
       "/var/lib/private/prowlarr"
       "/var/lib/private/seerr"
       "/var/lib/qBittorrent"
