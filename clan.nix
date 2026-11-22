@@ -21,10 +21,6 @@
       deploy.targetHost = "root@135.181.35.96";
       tags = ["nixos" "user"];
     };
-    im-backup = {
-      deploy.targetHost = "root@100.123.32.17";
-      tags = ["nixos"];
-    };
   };
 
   inventory.instances = {
