@@ -6,10 +6,17 @@
   };
   systemd.services.radarr.serviceConfig.UMask = lib.mkForce "0002";
 
-  # Prowlarr: manages torrent indexers and syncs them to Radarr
+  # Sonarr: same as Radarr, for TV shows
+  services.sonarr = {
+    enable = true;
+    group = "media";
+  };
+  systemd.services.sonarr.serviceConfig.UMask = lib.mkForce "0002";
+
+  # Prowlarr: manages torrent indexers and syncs them to Radarr and Sonarr
   services.prowlarr.enable = true;
 
-  # Bazarr: downloads subtitles for everything Radarr imports, saved as .srt next to the video
+  # Bazarr: downloads subtitles for everything Radarr and Sonarr import, saved as .srt next to the video
   services.bazarr = {
     enable = true;
     group = "media";
@@ -19,6 +26,7 @@
   # Admin UIs are only reachable over Netbird
   networking.firewall.interfaces."wt0".allowedTCPPorts = [
     7878 # radarr
+    8989 # sonarr
     9696 # prowlarr
     6767 # bazarr
   ];

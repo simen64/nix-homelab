@@ -7,17 +7,19 @@
     ./scanning.nix
   ];
 
-  # Shared group so the downloader, Radarr and Jellyfin can all read/write the library.
+  # Shared group so the downloader, Radarr, Sonarr and Jellyfin can all read/write the library.
   users.groups.media = {};
 
-  # Downloads and library live on the same dataset so Radarr can hardlink instead of copy.
+  # Downloads and library live on the same dataset so Radarr and Sonarr can hardlink instead of copy.
   # Setgid (2775) keeps new files in the media group.
   systemd.tmpfiles.rules = [
     "d /spare/data 2775 root media - -"
     "d /spare/data/torrents 2775 root media - -"
     "d /spare/data/torrents/movies 2775 root media - -"
+    "d /spare/data/torrents/tv 2775 root media - -"
     "d /spare/data/media 2775 root media - -"
     "d /spare/data/media/movies 2775 root media - -"
+    "d /spare/data/media/tv 2775 root media - -"
     "d /spare/data/quarantine 2770 root media - -"
   ];
 
@@ -26,6 +28,7 @@
     folders = [
       "/var/lib/jellyfin"
       "/var/lib/radarr"
+      "/var/lib/sonarr"
       "/var/lib/bazarr"
       "/var/lib/private/prowlarr"
       "/var/lib/private/seerr"
