@@ -14,6 +14,7 @@
     ./modules/apps/discord_assistant.nix
     ./modules/apps/resolve-project-server.nix
     ./modules/apps/dawarich.nix
+    ./modules/podman-networks.nix
     ./modules/apps/media
     ./modules/apps/container-updates.nix
     ../../modules
