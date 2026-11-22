@@ -18,6 +18,8 @@ in {
       volumes = [
         "/var/run/docker.sock:/var/run/docker.sock"
       ];
+      # Delete the old image after updating a container, or they fill the disk
+      environment.WATCHTOWER_CLEANUP = "true";
     };
   };
 }

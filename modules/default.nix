@@ -28,6 +28,14 @@
     pkgs.net-tools
   ];
 
+  # Old generations and store paths are never removed otherwise
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+  nix.optimise.automatic = true;
+
   nixpkgs = {
     config = {
       allowUnfree = true;
