@@ -40,6 +40,7 @@
       mysqlPass = config.clan.core.vars.generators.seafile-mysql-password.files.password.path;
       jwtKey = config.clan.core.vars.generators.seafile-jwt-private-key.files.password.path;
     in ''
+      mkdir -p /files/seafile/notification-logs
       install -m 600 /dev/null /run/seafile-notification-secrets.env
       {
         echo "SEAFILE_MYSQL_DB_PASSWORD=$(cat ${mysqlPass})"

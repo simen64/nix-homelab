@@ -195,7 +195,8 @@
     extraOptions = [
       "--cpus=0.5"
       "--entrypoint=[\"web-entrypoint.sh\"]"
-      "--health-cmd=wget -qO - http://127.0.0.1:3000/api/v1/health | grep -q '\"status\"\\s*:\\s*\"ok\"'"
+      # Without the header Rails redirects to https, which Puma doesn't serve
+      "--health-cmd=wget -qO - --header='X-Forwarded-Proto: https' http://127.0.0.1:3000/api/v1/health | grep -q '\"status\"\\s*:\\s*\"ok\"'"
       "--health-interval=10s"
       "--health-retries=30"
       "--health-start-period=30s"
