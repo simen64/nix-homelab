@@ -36,6 +36,8 @@ in {
         files.webhook-secret = {
           secret = true;
           owner = "webhook";
+          # The hooks template reads the secret only at startup
+          restartUnits = ["webhook.service"];
         };
         script = ''
           cat $prompts/webhook-secret > $out/webhook-secret
