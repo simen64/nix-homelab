@@ -29,6 +29,18 @@
   boot.kernel.sysctl."net.ipv4.ip_forward" = lib.mkDefault 1;
   boot.kernelParams = ["zfs.zfs_arc_max=8589934592"];
 
+  boot.kernel.sysctl = {
+    "kernel.panic" = 10;              # reboot 10 s after a panic
+    "kernel.panic_on_oops" = 1;       # treat oops as panic
+    "kernel.softlockup_panic" = 1;    # stuck CPU → panic
+    "kernel.hung_task_panic" = 1;     # stuck I/O task → panic
+  };
+
+  systemd.settings.Manager = {
+    RuntimeWatchdogSec = "30s";
+    RebootWatchdogSec = "10min";
+  };
+
   homelab.services = {
     pocket-id.enable = true;
     caddy.enable = true;
